@@ -1,0 +1,70 @@
+= Jlink Maven Plugin
+
+The Jlink Maven Plugin is using the *jlink* command to create Java Runtime with
+only the Java Runtime modules included which are required to run the builded project.
+
+Due to the Java Desktop licence change and the new Java release cadence I'd the problem
+with a number of tiny Spring Boot application which are shipped in my company. To overcome
+these problems and delivery the independent application I've started this project to ship
+compressed Java Runtime which is fitting only the application.
+
+== Jdeps
+
+To create your own Java Runtime which only contains the Java modules that are used in your application
+we have to use Java *jdeps* command which analyses a project and lists all Java module names.
+For that purpose this plugin is unpack the target jar and analyses all jar files (BOOT-INF/lib) and
+collects the Java module dependencies. With that information to hand we can create the Java Runtime
+with the *jlink* command
+
+== Problems (Todos)
+
+* jdeps can't analyse all jar files
+* Spring Boot Maven Plugin - executable jar - can't unpack executable jar
+* Define variable for absolute output directory.    
+* Performance: slow execution due to calling the jdeps command on each jar independently
+* Error handling
+
+== Usage
+
+To use the jlink maven plugin you only have to add it in the plugin section.
+It will generate a folder called *java_deploy* which contains the generated 
+Java Runtime environment, the target JAR file and a batch file (windows) to
+call the application.
+
+
+[source,xml]
+----
+<plugin>
+	<groupId>com.giffing.jlink</groupId>
+	<artifactId>jlink-maven-plugin</artifactId>
+	<version>0.0.x</version>
+	<executions>
+		<execution>
+			<phase>install</phase>
+			<goals>
+				<goal>jlink</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
+----
+
+[source,xml]
+----
+<plugin>
+	<groupId>com.giffing.jlink</groupId>
+	<artifactId>jlink-maven-plugin</artifactId>
+	<version>0.0.x</version>
+	<executions>
+		<execution>
+			<phase>install</phase>
+			<goals>
+				<goal>jlink</goal>
+			</goals>
+			<configuration>
+				<javaDirectory>C:/Program Files/Java/jdk-13/</javaDirectory>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+----
