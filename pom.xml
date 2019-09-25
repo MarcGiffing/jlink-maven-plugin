@@ -5,7 +5,7 @@
 
 	<groupId>com.giffing.jlink</groupId>
 	<artifactId>jlink-maven-plugin</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>jlink-maven-plugin Maven Plugin</name>
