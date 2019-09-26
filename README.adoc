@@ -23,6 +23,7 @@ with the *jlink* command
 * Define variable for absolute output directory.    
 * Performance: slow execution due to calling the jdeps command on each jar independently
 * Error handling
+* user defined list of java modules
 
 == Usage
 
